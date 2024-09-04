@@ -4,7 +4,7 @@ Helps automate download process for NexusMods
 Before running, run the command below
 pip install pyautogui opencv-python pillow
 Enjoy!
-***remember, using a autoclicker could get you banned***
+***remember, using an  autoclicker could get you banned***
 '''
 
 import pyautogui
