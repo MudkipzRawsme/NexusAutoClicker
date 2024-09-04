@@ -1,5 +1,5 @@
 # NexusAutoClicker
- An pretty paranoid autoclicker for nexusmods which clicks the slow download button for you. Mainly used for those long Wabbajack lists.
+ An autoclicker for nexusmods which clicks the slow download button for you. Mainly used for those long Wabbajack lists.
 
  Features:
  - random intervals between clicks
