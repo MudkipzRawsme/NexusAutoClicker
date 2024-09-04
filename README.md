@@ -1,5 +1,5 @@
 # NexusAutoClicker
- A simple autoclicker which clicks the slow download button for you. Clicks between random intervals and random locations.
+ A simple autoclicker for nexusmods which clicks the slow download button for you. Mainly used for those long Wabbajack lists. Clicks between random intervals and random locations.
  
  Currently requires an IDE to run (Pycharm). Will implement an exe version later when I feel like it
 
