@@ -29,7 +29,7 @@ def find_and_click():
                 click_here = (button_center.x + x_offset, button_center.y + y_offset)
                 # This is so that the API doesn't catch on
                 # Picks a random number between 1-3 and waits
-                time.sleep(random.uniform(1, 3))
+                time.sleep(random.uniform(1.0, 3.0))
                 # Click the randomized location
                 pyautogui.click(click_here)
 
