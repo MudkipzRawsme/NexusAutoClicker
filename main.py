@@ -36,6 +36,7 @@ def find_and_click():
                 # This is so that the API doesn't catch on
                 # Picks a random number between 0.5-1.7 and waits
                 time.sleep(random.uniform(0.5, 1.7))
+                # Sets current_position to mouse position
                 current_position = pyautogui.position()
                 if not is_within_bounds(current_position, button_location):
                     # Going to make it move instead of teleport just in case. Clicks if already within bounds
