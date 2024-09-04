@@ -4,7 +4,7 @@
  Features:
  - random intervals between clicks
  - random mouse placement on the button
- - a cursor moving to the button with randomized speed.
+ - cursor moving to the button at randomized speed
  
  Currently requires an IDE to run I think (Pycharm). Will implement an exe version later when I feel like it.
 
