@@ -13,6 +13,7 @@ import random
 import tkinter as tk
 from tkinter import messagebox
 
+# Helper function to test if current_position is within the bounds of button_location
 def is_within_bounds(position, region):
     x, y = position
     left, top, width, height = region
@@ -37,7 +38,7 @@ def find_and_click():
                 time.sleep(random.uniform(0.5, 1.7))
                 current_position = pyautogui.position()
                 if not is_within_bounds(current_position, button_location):
-                    # Going to make it move instead of teleport just in case
+                    # Going to make it move instead of teleport just in case. Clicks if already within bounds
                     pyautogui.moveTo(move_here, duration=random.uniform(0.4, 1.0))
                 # Click
                 pyautogui.click()
