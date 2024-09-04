@@ -29,7 +29,7 @@ def find_and_click():
                 # Getting center of button
                 button_center = pyautogui.center(button_location)
                 # This is a just in case they can detect button press location kinda thing
-                # Randomizes the location for the click
+                # Randomizes the location for the mouse
                 x_offset = random.randint(-80, 80)
                 y_offset = random.randint(-20, 20)
                 move_here = (button_center.x + x_offset, button_center.y + y_offset)
@@ -43,15 +43,15 @@ def find_and_click():
                 # Click
                 pyautogui.click()
                 # Sleep to make it less suspicious
-                time.sleep(1.3)
+                time.sleep(1.5)
         except pyautogui.ImageNotFoundException:
             # If the image is not found, print error and retry
             print("Cannot find the image")
-            time.sleep(1.3)
+            time.sleep(1.5)
         except Exception as e:
             # If anything else fucks over, print error and retry
             print(f"An unexpected error occurred: {e}")
-            time.sleep(1.3)
+            time.sleep(1.5)
 
 
 # Dunno why I did this and dont know how it work well. Just felt like it'd be prettier
