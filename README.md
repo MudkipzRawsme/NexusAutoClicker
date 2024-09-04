@@ -6,7 +6,7 @@
  - random mouse placement on the button
  - cursor moving to the button at randomized speed
  
- Currently requires an IDE to run I think (Pycharm). Will implement an exe version later when I feel like it.
+ Will implement an exe version later when I feel like it.
 
  Instructions are all in the main.py file which you run.
 
