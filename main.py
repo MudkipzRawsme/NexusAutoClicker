@@ -32,6 +32,7 @@ def find_and_click():
                 time.sleep(random.uniform(1.0, 3.0))
                 # Click the randomized location
                 pyautogui.click(click_here)
+                time.sleep(2)
 
         except pyautogui.ImageNotFoundException:
             # If the image is not found, print error and retry
