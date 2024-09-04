@@ -4,9 +4,9 @@
  Features:
  - random intervals between clicks
  - random mouse placement on the button
- - a cursor moving to the button with randomized speed.
+ - cursor moving to the button at randomized speed
  
- Currently requires an IDE to run (Pycharm). Will implement an exe version later when I feel like it.
+ Currently requires an IDE to run I think (Pycharm). Will implement an exe version later when I feel like it.
 
  Instructions are all in the main.py file which you run.
 
