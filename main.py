@@ -13,6 +13,11 @@ import random
 import tkinter as tk
 from tkinter import messagebox
 
+def is_within_bounds(position, region):
+    x, y = position
+    left, top, width, height = region
+    return left <= x <= left + width and top <= y <= top + height
+
 # Main function
 def find_and_click():
     while True:
@@ -24,24 +29,28 @@ def find_and_click():
                 button_center = pyautogui.center(button_location)
                 # This is a just in case they can detect button press location kinda thing
                 # Randomizes the location for the click
-                x_offset = random.randint(-10, 10)
-                y_offset = random.randint(-5, 5)
-                click_here = (button_center.x + x_offset, button_center.y + y_offset)
+                x_offset = random.randint(-80, 80)
+                y_offset = random.randint(-20, 20)
+                move_here = (button_center.x + x_offset, button_center.y + y_offset)
                 # This is so that the API doesn't catch on
-                # Picks a random number between 1-3 and waits
-                time.sleep(random.uniform(1.0, 3.0))
-                # Click the randomized location
-                pyautogui.click(click_here)
-                time.sleep(2)
-
+                # Picks a random number between 0.5-1.7 and waits
+                time.sleep(random.uniform(0.5, 1.7))
+                current_position = pyautogui.position()
+                if not is_within_bounds(current_position, button_location):
+                    # Going to make it move instead of teleport just in case
+                    pyautogui.moveTo(move_here, duration=random.uniform(0.4, 1.0))
+                # Click
+                pyautogui.click()
+                # Sleep to make it less suspicious
+                time.sleep(1.3)
         except pyautogui.ImageNotFoundException:
             # If the image is not found, print error and retry
             print("Cannot find the image")
-            time.sleep(2)
+            time.sleep(1.3)
         except Exception as e:
             # If anything else fucks over, print error and retry
             print(f"An unexpected error occurred: {e}")
-            time.sleep(2)
+            time.sleep(1.3)
 
 
 # Dunno why I did this and dont know how it work well. Just felt like it'd be prettier
