@@ -23,7 +23,7 @@ def is_within_bounds(position, region):
 def find_and_click():
     while True:
         try:
-            # Locating center. Edit confidence as needed
+            # Locating button. Edit confidence as needed
             button_location = pyautogui.locateOnScreen('button.png', confidence=0.9)
             if button_location is not None:
                 # Getting center of button
@@ -43,7 +43,7 @@ def find_and_click():
                     pyautogui.moveTo(move_here, duration=random.uniform(0.4, 1.0))
                 # Click
                 pyautogui.click()
-                # Sleep to make it less suspicious
+                # Wait after to make it less suspicious
                 time.sleep(1.5)
         except pyautogui.ImageNotFoundException:
             # If the image is not found, print error and retry
