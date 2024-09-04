@@ -1,6 +1,6 @@
 # NexusAutoClicker
 
- Understand that the use of a autoclicker violates nexusmods TOS and WILL get you banned
+ Understand that the use of a autoclicker violates nexusmods TOS and if they detect it, you WILL be banned
 
  A simple autoclicker which clicks the slow download button for you. Clicks between random intervals and random locations 
  
