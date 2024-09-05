@@ -12,6 +12,9 @@ import time
 import random
 import tkinter as tk
 from tkinter import messagebox
+from threading import Thread, Event
+
+stop_event = Event()
 
 # Helper function to test if current_position is within the bounds of button_location
 def is_within_bounds(position, region):
@@ -21,7 +24,7 @@ def is_within_bounds(position, region):
 
 # Main function
 def find_and_click():
-    while True:
+    while not stop_event.is_set():
         try:
             # Locating button. Edit confidence as needed
             button_location = pyautogui.locateOnScreen('button.png', confidence=0.9)
@@ -64,10 +67,27 @@ def show_termination_popup():
     messagebox.showinfo("Autoclicker Termination", "The autoclicker has been terminated.")
     root.destroy()
 
-# Running the project
-try:
-    # Running the main function
-    find_and_click()
-except KeyboardInterrupt:
-    # Terminates and shows a popup
+def start_autoclicker():
+    stop_event.clear()
+    autoclicker_thread = Thread(target=find_and_click)
+    autoclicker_thread.start()
+    print("Started")
+
+def stop_autoclicker():
+    stop_event.set()
     show_termination_popup()
+    print("Stopped")
+root = tk.Tk()
+root.title("NexusMods Autoclicker")
+
+start_button = tk.Button(root, text="Start", command=lambda: [start_autoclicker(), start_button.config(state=tk.DISABLED), stop_button.config(state=tk.NORMAL)])
+start_button.pack(pady=10)
+
+stop_button = tk.Button(root, text="Stop", command=lambda: [stop_autoclicker(), start_button.config(state=tk.NORMAL), stop_button.config(state=tk.DISABLED)])
+stop_button.pack(pady=10)
+stop_button.config(state=tk.DISABLED)
+
+root.mainloop()
+
+
+# Running the project
