@@ -6,9 +6,7 @@
  - random mouse placement on the button
  - cursor moving to the button at randomized speed
  
- Will implement an exe version later when I feel like it.
-
- Instructions are all in the main.py file which you run.
+.exe file is in the dist folder
 
  I don't really hear that many reports of people getting banned, and this program is especially careful about it, however
 # Warning
