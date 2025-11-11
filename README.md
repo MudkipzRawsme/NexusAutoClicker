@@ -8,7 +8,7 @@
  
 .exe file is in the dist folder
 
-drop a button.png in an empty folder with the .exe
+drop your own screenshot of the button.png in an empty folder with the .exe
 
  I don't really hear that many reports of people getting banned, and this program is especially careful about it, however
 # Warning
