@@ -1,9 +1,16 @@
 '''
-Python project by @MudkipzRawsme
+Python project by @MudkipzRawsme & @aristeiaa 
 Helps automate download process for NexusMods
 Updated: Select Region + Move Away Logic
-Before running, run the command below:
+
+Virtual Environment Recommended!!!
+
+=====
+Before running, run the command(s) below:
 pip install pyautogui opencv-python pillow
+=====
+
+
 ***remember, using an autoclicker could get you banned***
 '''
 
@@ -24,6 +31,8 @@ def is_within_bounds(position, region):
     x, y = position
     left, top, width, height = region
     return left <= x <= left + width and top <= y <= top + height
+
+# --- Button image logic ---
 
 def capture_screen_region(root_window):
     """
