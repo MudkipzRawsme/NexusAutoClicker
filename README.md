@@ -19,7 +19,7 @@ You can also just run the python script as well
  2. Press start and begin
  3. Stop when done
 
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 I don't really hear that many reports of people getting banned, and this program is especially careful about it, however
 # Warning
  Understand that the use of an autoclicker violates nexusmods TOS and if they detect it, you WILL be BANNED.
