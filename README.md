@@ -9,7 +9,7 @@
  - cursor moving to the button at randomized speed
  - button on window to select "download button" region
 
-.exe in releases, also in dist folder, packaged with pyinstaller so it's a fairly big file
+.exe in releases, also in dist folder, packaged with pyinstaller so it's a fairly big file :(
 You can also just run the python script as well
 
 # Instructions
