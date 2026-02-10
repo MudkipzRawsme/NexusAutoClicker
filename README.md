@@ -12,9 +12,15 @@
 .exe in releases, also in dist folder, packaged with pyinstaller so it's a fairly big file
 You can also just run the python script as well
 
-You need to have a button.png in the same folder with either the python script or the .exe file
+# Instructions
+ You need to have a button.png & button_hover.png in the same folder with either the python script or the .exe file
 
- I don't really hear that many reports of people getting banned, and this program is especially careful about it, however
+ 1. Use the select button region and hover button region to create a button and button_hover png. There will be a delay of 0.5s so that you can remain hovered
+ 2. Press start and begin
+ 3. Stop when done
+
+
+I don't really hear that many reports of people getting banned, and this program is especially careful about it, however
 # Warning
  Understand that the use of an autoclicker violates nexusmods TOS and if they detect it, you WILL be BANNED.
 

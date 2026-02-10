@@ -1,9 +1,10 @@
 '''
 Python project by @MudkipzRawsme & @aristeiaa 
 Helps automate download process for NexusMods
-Updated: Select Region + Move Away Logic
 
-Virtual Environment Recommended!!!
+Readme for instructions and warnings
+
+Using a venv is recommended to avoid conflicts with other Python projects
 
 =====
 Before running, run the command(s) below:
@@ -20,10 +21,12 @@ import random
 import tkinter as tk
 from tkinter import messagebox
 from threading import Thread, Event
+from functools import partial   
 import os
 
 # --- Global Variables ---
 stop_event = Event()
+overlay_active = False
 
 # --- Helper Functions ---
 
@@ -34,10 +37,18 @@ def is_within_bounds(position, region):
 
 # --- Button image logic ---
 
-def capture_screen_region(root_window):
+def capture_screen_region(root_window, filename):
     """
     Creates a semi-transparent overlay to let the user drag-select a region.
     """
+
+    global overlay_active
+
+    if (overlay_active):
+        messagebox.showwarning("Warning", "Overlay already active. Please complete the current selection.")
+        return
+    
+    overlay_active = True
     
     # Create a full-screen top-level window
     top = tk.Toplevel(root_window)
@@ -48,6 +59,20 @@ def capture_screen_region(root_window):
     # Canvas for drawing the selection rectangle
     canvas = tk.Canvas(top, bg="black", highlightthickness=0)
     canvas.pack(fill="both", expand=True)
+
+    top.focus_set()
+    top.grab_set()
+
+    def close_overlay():
+        global overlay_active
+        overlay_active = False
+        top.destroy()
+
+    top.bind('<Escape>', lambda e: close_overlay())
+    canvas.bind('<Escape>', lambda e: close_overlay())
+
+    canvas.bind('<Button-3>', lambda e: close_overlay())
+    top.bind('<Button-3>', lambda e: close_overlay())
 
     # Variables to store coordinates
     start_x, start_y = 0, 0
@@ -81,11 +106,15 @@ def capture_screen_region(root_window):
         root_window.update() 
         time.sleep(0.2)
 
+        global overlay_active
+        overlay_active = False
+
         if width > 5 and height > 5:
             try:
                 # Capture and save
-                pyautogui.screenshot('button.png', region=(x, y, width, height))
-                messagebox.showinfo("Success", "Button image saved as 'button.png'.\nYou can now press Start.")
+                time.sleep(0.5)
+                pyautogui.screenshot(filename, region=(x, y, width, height))
+                messagebox.showinfo("Success", f"Button image saved as '{filename}'.")
             except Exception as e:
                 messagebox.showerror("Error", f"Failed to save image: {e}")
         else:
@@ -95,15 +124,12 @@ def capture_screen_region(root_window):
     canvas.bind('<ButtonPress-1>', on_mouse_down)
     canvas.bind('<B1-Motion>', on_mouse_drag)
     canvas.bind('<ButtonRelease-1>', on_mouse_up)
-    
-    # Allow exit with Escape key
-    top.bind('<Escape>', lambda e: top.destroy())
 
 # --- Main Logic ---
 
 def find_and_click():
-    if not os.path.exists('button.png'):
-        print("Error: button.png not found.")
+    if not os.path.exists('button.png') and not os.path.exists('button_hover.png'):
+        print("Error: button.png or button_hover.png not found.")
         return
 
     # Get screen size once to ensure we don't move mouse off-screen later
@@ -112,7 +138,11 @@ def find_and_click():
     while not stop_event.is_set():
         try:
             # Locating button. grayscale=True is faster and often more accurate for UI elements
-            button_location = pyautogui.locateOnScreen('button.png', confidence=0.8, grayscale=True)
+            button_location = (
+                pyautogui.locateOnScreen('button.png', confidence=0.8, grayscale=True)
+                or
+                pyautogui.locateOnScreen('button_hover.png', confidence=0.8, grayscale=True)
+            )
             
             if button_location is not None:
                 # --- 1. Calculate safe click spot ---
@@ -138,22 +168,6 @@ def find_and_click():
                 # Click
                 pyautogui.click()
                 print("Clicked button.")
-                
-                # --- 2. NEW: Move mouse AWAY to reset hover state ---
-                # We pick a random direction and move 200-400 pixels away
-                # This ensures the button stops glowing so we can find it again next time
-                
-                away_dist_x = random.randint(200, 400) * random.choice([-1, 1])
-                away_dist_y = random.randint(200, 400) * random.choice([-1, 1])
-                
-                curr_x, curr_y = pyautogui.position()
-                
-                # Math to keep the mouse inside the screen (prevent crash)
-                target_x = max(0, min(screen_w, curr_x + away_dist_x))
-                target_y = max(0, min(screen_h, curr_y + away_dist_y))
-                
-                # Move away smoothly
-                pyautogui.moveTo(target_x, target_y, duration=random.uniform(0.3, 0.7))
 
                 # Wait after to make it less suspicious
                 time.sleep(1.5)
@@ -174,8 +188,8 @@ def show_termination_popup():
     messagebox.showinfo("Autoclicker Termination", "The autoclicker has been stopped.")
 
 def start_autoclicker():
-    if not os.path.exists('button.png'):
-        messagebox.showerror("Error", "No 'button.png' found.\nPlease use 'Select Region' first.")
+    if not os.path.exists('button.png') and not os.path.exists('button_hover.png'):
+        messagebox.showerror("Error", "No 'button.png' or 'button_hover.png' found.\nPlease use 'Select Region' first.")
         return
         
     stop_event.clear()
@@ -195,19 +209,25 @@ root.title("NexusMods Autoclicker")
 root.geometry("300x200")
 
 # Instruction Label
-lbl_instr = tk.Label(root, text="1. Select the button region\n2. Press Start")
+lbl_instr = tk.Label(root, text="1. Select button and hover button regions\n2. Press Start")
 lbl_instr.pack(pady=5)
 
 # Select Region Button
-select_btn = tk.Button(root, text="Select Button Region", command=lambda: capture_screen_region(root), bg="#dddddd")
+select_btn = tk.Button(root, text="Select Button Region (F11)", command=lambda: capture_screen_region(root, "button.png"), bg="#dddddd")
 select_btn.pack(pady=5)
+root.bind("<F11>", lambda e: select_btn.invoke())
+
+select_hover_button = tk.Button(root, text="Select Hover Button Region (F12)", command=lambda: capture_screen_region(root, "button_hover.png"), bg="#dddddd")
+select_hover_button.pack(pady=5)
+root.bind("<F12>", lambda e: select_hover_button.invoke())
+
 
 # Start Button
-start_button = tk.Button(root, text="Start", width=15, command=lambda: [start_autoclicker(), start_button.config(state=tk.DISABLED), stop_button.config(state=tk.NORMAL), select_btn.config(state=tk.DISABLED)], bg="#90ee90")
+start_button = tk.Button(root, text="Start", width=15, command=lambda: [start_autoclicker(), start_button.config(state=tk.DISABLED), stop_button.config(state=tk.NORMAL), select_btn.config(state=tk.DISABLED), select_hover_button.config(state=tk.DISABLED)], bg="#90ee90")
 start_button.pack(pady=5)
 
 # Stop Button
-stop_button = tk.Button(root, text="Stop", width=15, command=lambda: [stop_autoclicker(), start_button.config(state=tk.NORMAL), stop_button.config(state=tk.DISABLED), select_btn.config(state=tk.NORMAL)], bg="#ffcccb")
+stop_button = tk.Button(root, text="Stop", width=15, command=lambda: [stop_autoclicker(), start_button.config(state=tk.NORMAL), stop_button.config(state=tk.DISABLED), select_btn.config(state=tk.NORMAL), select_hover_button.config(state=tk.NORMAL)], bg="#ffcccb")
 stop_button.pack(pady=5)
 stop_button.config(state=tk.DISABLED)
 
