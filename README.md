@@ -1,5 +1,5 @@
 # NexusAutoClicker
- An autoclicker for nexusmods which clicks the slow download button for you. Mainly used for those long Wabbajack lists.
+ An autoclicker for nexusmods with some careful additions which clicks the slow download button for you. Mainly used for those long Wabbajack lists.
 
  (Updated to bypass the button changing colors)
 
@@ -9,8 +9,7 @@
  - cursor moving to the button at randomized speed
  - button on window to select "download button" region
 
-.exe in releases, also in dist folder, packaged with pyinstaller so it's a fairly big file :(
-You can also just run the python script as well
+.exe in releases, packaged with pyinstaller (which packages python + other dependences), leading to a large size
 
 # Instructions
  You need to have a button.png & button_hover.png in the same folder with either the python script or the .exe file
