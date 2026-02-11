@@ -10,6 +10,7 @@
  - button on window to select "download button" region
 
 .exe in releases, packaged with pyinstaller (which packages python + other dependences), leading to a large size
+Feel free to just use the python file as well, with instructions commented at the top
 
 # Instructions
  You need to have a button.png & button_hover.png in the same folder with either the python script or the .exe file
