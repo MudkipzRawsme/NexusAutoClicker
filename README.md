@@ -23,5 +23,5 @@ Feel free to just use the python file as well, with instructions commented at th
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 I don't really hear that many reports of people getting banned, and this program is especially careful about it, however
 # Warning
- Understand that the use of an autoclicker *may* violates nexusmods TOS, and could lead to a ban
+ Understand that the use of an autoclicker *may* violate nexusmods TOS, and could lead to a ban
 
